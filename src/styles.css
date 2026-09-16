@@ -1,0 +1,218 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+
+  --color-bg: #0b0a08;
+  --color-surface: #14120f;
+  --color-raised: #1c1914;
+  --color-paper: #f4efe4;
+  --color-ink: #1a1714;
+  --color-fg: #f3eee6;
+  --color-muted: #9a9286;
+  --color-faint: #6e675c;
+  --color-brass: #b89a62;
+  --color-brass-fg: #1a150c;
+  --color-line: #2a261f;
+  --color-danger: #c45c4a;
+  --color-ok: #6e9b6f;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-fg: #073b1a;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --shadow-border: 0 0 0 1px rgba(243, 238, 230, 0.08);
+  --shadow-paper: 0 0 0 1px rgba(26, 23, 20, 0.06), 0 12px 40px rgba(11, 10, 8, 0.08);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    color-scheme: dark;
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-fg);
+    min-height: 100dvh;
+    max-width: 100%;
+    overflow-x: clip;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  a,
+  button,
+  [role="button"],
+  select,
+  summary {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: color-mix(in oklab, var(--color-brass) 22%, transparent);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  select:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 2px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    a[href],
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+      cursor: pointer;
+    }
+  }
+
+  img,
+  video,
+  canvas,
+  iframe,
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+    max-width: 100%;
+    color-scheme: dark;
+  }
+
+  select {
+    background-color: var(--color-raised);
+    color: var(--color-fg);
+  }
+
+  option {
+    background-color: var(--color-raised);
+    color: var(--color-fg);
+  }
+
+  h1,
+  h2,
+  h3,
+  p,
+  li {
+    overflow-wrap: break-word;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  pre,
+  code,
+  .font-mono {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-brass) 45%, transparent);
+    color: var(--color-fg);
+  }
+
+  .led-on {
+    background: var(--color-ok);
+    box-shadow: 0 0 10px color-mix(in oklab, var(--color-ok) 80%, transparent);
+    animation: led-pulse 1.6s ease-in-out infinite;
+  }
+
+  .led-off {
+    background: var(--color-danger);
+    box-shadow: 0 0 6px color-mix(in oklab, var(--color-danger) 50%, transparent);
+  }
+
+  .scroll-touch {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scroll-touch::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes led-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .led-on {
+    animation: none;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  body::after {
+    visibility: visible !important;
+    content: "This academy cannot be printed. Access is licensed to a unique code.";
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-sans);
+    padding: 2rem;
+    text-align: center;
+  }
+}
+
+.watermark-grid {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.07;
+  background-image: repeating-linear-gradient(
+    -28deg,
+    transparent 0,
+    transparent 72px,
+    currentColor 72px,
+    currentColor 73px
+  );
+}
+
+.reader-select-off {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.prompt-copy {
+  user-select: text;
+  -webkit-user-select: text;
+}

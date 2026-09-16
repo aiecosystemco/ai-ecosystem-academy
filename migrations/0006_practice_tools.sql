@@ -1,0 +1,43 @@
+create table if not exists practice_tools (
+  id text primary key,
+  name text not null,
+  category text not null,
+  blurb text not null default '',
+  web text not null,
+  ios text not null default '',
+  android text not null default '',
+  desktop text not null default '',
+  how text not null default '',
+  active boolean not null default true,
+  sort_order integer not null default 10,
+  updated_at timestamptz not null default now()
+);
+
+insert into practice_tools (id, name, category, blurb, web, ios, android, desktop, how, active, sort_order) values
+  ('chatgpt', 'ChatGPT', 'chat', 'Draft prompts, character bibles, and shot lists.', 'https://chatgpt.com', 'https://apps.apple.com/app/chatgpt/id6448311069', 'https://play.google.com/store/apps/details?id=com.openai.chatgpt', '', 'Opens ChatGPT on the web. On a phone, use the official app if you have it.', true, 10),
+  ('grok', 'Grok', 'chat', 'xAI chat — also generates images and video inside the same app.', 'https://grok.com', 'https://apps.apple.com/app/grok/id6670324846', 'https://play.google.com/store/apps/details?id=ai.x.grok', '', 'Opens Grok. On iPhone or Android, the Grok app is the fastest path.', true, 20),
+  ('gemini', 'Gemini', 'chat', 'Google chat. Image and Veo video live here on a phone.', 'https://gemini.google.com', 'https://apps.apple.com/app/google-gemini/id6475988169', 'https://play.google.com/store/apps/details?id=com.google.android.apps.bard', '', 'Opens Gemini. Ask it to generate an image or a Veo clip.', true, 30),
+  ('chatgpt-image', 'ChatGPT Images', 'image', 'Generate stills inside ChatGPT — its own image studio, not just chat.', 'https://chatgpt.com', 'https://apps.apple.com/app/chatgpt/id6448311069', 'https://play.google.com/store/apps/details?id=com.openai.chatgpt', '', 'Open ChatGPT and ask it to generate an image. Save the still back in Studio.', true, 40),
+  ('grok-image', 'Grok Imagine', 'image', 'xAI image generation inside Grok.', 'https://grok.com', 'https://apps.apple.com/app/grok/id6670324846', 'https://play.google.com/store/apps/details?id=ai.x.grok', '', 'Open Grok, switch to Imagine, paste your still prompt.', true, 50),
+  ('gemini-image', 'Gemini Images', 'image', 'Google image generation inside Gemini.', 'https://gemini.google.com', 'https://apps.apple.com/app/google-gemini/id6475988169', 'https://play.google.com/store/apps/details?id=com.google.android.apps.bard', '', 'Open Gemini and ask it to generate an image.', true, 60),
+  ('google-flow-image', 'Google Flow Images', 'image', 'Google Flow stills — the same studio used for Veo filmmaking.', 'https://labs.google/flow', '', '', '', 'Open Flow on a computer. Set generation type to Image, then generate.', true, 70),
+  ('midjourney', 'Midjourney', 'image', 'Cinematic stills and look development.', 'https://www.midjourney.com', '', '', '', 'Sign in on the Midjourney website (computer or phone browser) and open Imagine.', true, 80),
+  ('leonardo', 'Leonardo', 'image', 'Image studio with character consistency tools.', 'https://app.leonardo.ai', '', '', '', 'Opens the Leonardo workspace in your browser.', true, 90),
+  ('flux', 'Flux', 'image', 'Photoreal stills from Black Forest Labs.', 'https://playground.bfl.ai', '', '', '', 'Opens the official FLUX playground. Sign in and paste your prompt.', true, 100),
+  ('higgsfield', 'Higgsfield', 'image', 'Cinematic camera control and character lock.', 'https://higgsfield.ai', '', '', '', 'Opens Higgsfield. Use it for stills and camera-led video.', true, 110),
+  ('google-flow', 'Google Flow', 'video', 'Google filmmaking studio — Veo video with scene control.', 'https://labs.google/flow', '', '', '', 'Open Flow on a computer. Set generation type to Video, then generate.', true, 120),
+  ('grok-video', 'Grok Video', 'video', 'xAI image-to-video and Imagine video inside Grok.', 'https://grok.com', 'https://apps.apple.com/app/grok/id6670324846', 'https://play.google.com/store/apps/details?id=ai.x.grok', '', 'Open Grok, use Imagine for video, then save a still back in Studio.', true, 130),
+  ('veo', 'Gemini Veo', 'video', 'Google Veo through the Gemini app — fastest on a phone.', 'https://gemini.google.com', 'https://apps.apple.com/app/google-gemini/id6475988169', 'https://play.google.com/store/apps/details?id=com.google.android.apps.bard', '', 'Open Gemini and ask for a Veo video. On a computer, Google Flow is the full studio.', true, 140),
+  ('kling', 'Kling', 'video', 'Image-to-video and text-to-video with motion control.', 'https://kling.ai', '', '', '', 'Opens Kling. Paste the prompt from the chapter, then save a still back in Studio.', true, 150),
+  ('runway', 'Runway', 'video', 'Shot-by-shot video workspace.', 'https://app.runwayml.com', '', '', '', 'Opens Runway. Generate the clip, then upload a still to your chapter notebook.', true, 160),
+  ('luma', 'Luma', 'video', 'Dream Machine — cinematic video from text or image.', 'https://lumalabs.ai/dream-machine', '', '', '', 'Opens Luma Dream Machine in the browser.', true, 170),
+  ('pika', 'Pika', 'video', 'Short social clips from a prompt or still.', 'https://pika.art', '', '', '', 'Opens Pika. Good for fast 9:16 tests.', true, 180),
+  ('capcut', 'CapCut', 'video', 'Edit, caption, and finish the clip you generated.', 'https://www.capcut.com', 'https://apps.apple.com/app/capcut-photo-video-editor/id1500855883', 'https://play.google.com/store/apps/details?id=com.lemon.lvoverseas', 'https://www.capcut.com/activity/download_pc', 'Web for computer, the CapCut app for phone, or the Windows/Mac installer.', true, 190),
+  ('elevenlabs', 'ElevenLabs', 'audio', 'Voiceover and speech from a script.', 'https://elevenlabs.io', '', '', '', 'Opens ElevenLabs. Paste dialogue from the book and generate a voice.', true, 200),
+  ('suno', 'Suno', 'audio', 'Songs and beds from a text prompt.', 'https://suno.com', '', '', '', 'Opens Suno. Create the track, then bring it into CapCut.', true, 210),
+  ('make', 'Make', 'automation', 'Connect generators so one prompt can trigger the next step.', 'https://www.make.com', '', '', '', 'Opens Make. Build a scenario that hands work between your tools.', true, 220),
+  ('zapier', 'Zapier', 'automation', 'No-code automations between the apps you already use.', 'https://zapier.com', '', '', '', 'Opens Zapier. Useful when you want a repeatable posting or saving flow.', true, 230),
+  ('n8n', 'n8n', 'automation', 'Self-serve workflows for more technical students.', 'https://n8n.io', '', '', '', 'Opens n8n. Use cloud or self-host if you want full control.', true, 240),
+  ('chatgpt-agent', 'ChatGPT Agent', 'agent', 'Have ChatGPT run a multi-step task instead of only answering.', 'https://chatgpt.com', 'https://apps.apple.com/app/chatgpt/id6448311069', 'https://play.google.com/store/apps/details?id=com.openai.chatgpt', '', 'Open ChatGPT, then choose Agent from the tools menu (or type /agent).', true, 250),
+  ('grok-agent', 'Grok Agent', 'agent', 'Hand Grok a job — research, image, video — and let it carry it.', 'https://grok.com', 'https://apps.apple.com/app/grok/id6670324846', 'https://play.google.com/store/apps/details?id=ai.x.grok', '', 'Open Grok and describe the whole task, not one prompt at a time.', true, 260)
+on conflict (id) do nothing;
