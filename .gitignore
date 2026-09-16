@@ -18,3 +18,4 @@ attachments/
 /tmp/
 coverage/
 .neon-url
+.aea-runtime-env
