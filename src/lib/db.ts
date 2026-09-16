@@ -1,4 +1,7 @@
 import { pendingMigrations } from "../../scripts/migration-plan.mjs";
+import { applyDeployEnv } from "./env.server";
+
+applyDeployEnv();
 
 /** Which database backend is active. */
 export type DbSource = "neon" | "pglite";
