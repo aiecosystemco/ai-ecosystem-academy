@@ -7,11 +7,23 @@
 import { existsSync, writeFileSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-const databaseUrl = process.env.DATABASE_URL?.trim() ?? "";
-const authUrl = process.env.BETTER_AUTH_URL?.trim() ?? "";
-const authSecret = process.env.BETTER_AUTH_SECRET?.trim() ?? "";
+const keys = [
+  "DATABASE_URL",
+  "BETTER_AUTH_URL",
+  "BETTER_AUTH_SECRET",
+  "GROK_AUTH_CLIENT_ID",
+  "GROK_AUTH_CLIENT_SECRET",
+  "GROK_AUTH_ISSUER",
+];
 
-if (!databaseUrl && !authUrl && !authSecret) {
+const pairs = keys
+  .map((key) => {
+    const value = process.env[key]?.trim() ?? "";
+    return value ? [key, value] : null;
+  })
+  .filter(Boolean);
+
+if (pairs.length === 0) {
   console.log("[inject-env] no deploy env — skip");
   process.exit(0);
 }
@@ -23,10 +35,9 @@ if (!existsSync(entry)) {
   process.exit(0);
 }
 
-const lines = [];
-if (databaseUrl) lines.push(`process.env.DATABASE_URL ||= ${JSON.stringify(databaseUrl)};`);
-if (authUrl) lines.push(`process.env.BETTER_AUTH_URL ||= ${JSON.stringify(authUrl)};`);
-if (authSecret) lines.push(`process.env.BETTER_AUTH_SECRET ||= ${JSON.stringify(authSecret)};`);
+const lines = pairs.map(
+  ([key, value]) => `process.env.${key} ||= ${JSON.stringify(value)};`,
+);
 
 const injectPath = join(funcDir, "__aea_env.mjs");
 writeFileSync(injectPath, `${lines.join("\n")}\n`);
